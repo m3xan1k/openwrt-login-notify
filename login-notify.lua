@@ -35,13 +35,10 @@ HOST_IP_ADDRESS = get_wan_ip()
 TEXT = string.format('Someone logged in host=<code>%s</code> ip_address=<code>%s</code> source=<code>%s</code>', HOSTNAME, HOST_IP_ADDRESS, LAST_LOGGED_IP)
 
 local url = string.format(
-    '%s%s/%s?text=%s&chat_id=%s&parse_mode=%s',
+    '%s%s/%s',
     BASE_URL,
     API_TOKEN,
-    SEND_MESSAGE_ENDPOINT,
-    TEXT,
-    CHAT_ID,
-    'HTML'
+    SEND_MESSAGE_ENDPOINT
 )
 
-os.execute(string.format('wget "%s"', url))
+os.execute(string.format('curl -X POST -d "text=%s&chat_id=%s&parse_mode=%s" "%s"', TEXT, CHAT_ID, 'HTML', url))
